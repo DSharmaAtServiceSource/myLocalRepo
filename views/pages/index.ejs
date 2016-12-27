@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     <% include ../partials/ldOut %>
+	 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="slds">
+    <header>
+    </header>
+    <main>
+      <div class="container">
+			<div class="jumbotron">
+				<h1>Lightning Out on Heroku</h1>
+				
+				<button id="sfAccountList" class="btn btn-primary btn-lg" onclick="showAccountList('NEWS')">
+					Show Expenses List
+				</button>
+			</div>
+			<div id="renderLtngComp"/>
+		</div>
+    </main>
+        <footer>
+        </footer>
+        <script>
+			var url = "<%= ouathLightningURL %>";
+			var token = "Bearer "+"<%= oauthtoken %>";
+			//var refreshToken = "refresh "+"<%= refreshtoken %>";
+			console.log(token);
+			//console.log(refreshToken);
+			$Lightning.use("c:expenseTracker", function() {},url,token );
+			
+
+			function showAccountList(type, subjectId) {
+				document.getElementById("renderLtngComp").innerHTML = "";
+				$Lightning.createComponent("c:form", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+			}
+
+        </script>
+  </body>
+</html>
